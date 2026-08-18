@@ -1,0 +1,66 @@
+---
+import GridLines from './GridLines.astro';
+import { scallopPath } from '../lib/scallop';
+
+const scallop = scallopPath();
+
+const pillars = [
+	{
+		number: '01',
+		title: ['Sourced with', 'intent'],
+		body: 'Ceremonial-grade matcha from Uji, Kyoto. Açaí from Brazil. Beans from the Volta hills. Nothing here arrives by accident.',
+	},
+	{
+		number: '02',
+		title: ['Made fresh,', 'never held'],
+		body: 'Matcha whisked to order, cold brew steeped overnight, cookies and bagels out of the oven the same morning you eat them.',
+	},
+	{
+		number: '03',
+		title: ['A room built', 'for pausing'],
+		body: 'Saya is more than a café — it’s a calm, unhurried corner of Swaniker Street made for deep work, long conversations and slow afternoons.',
+	},
+];
+---
+
+<section class="relative bg-bone">
+	<GridLines />
+
+	<div
+		class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] pb-[clamp(72px,calc(var(--w)*7/100),90px)] pt-[clamp(88px,calc(var(--w)*12/100),153px)]"
+	>
+		<ul
+			class="grid grid-cols-1 gap-[clamp(16px,calc(var(--w)*2.97/100),38px)] lg:grid-cols-3"
+			data-anim-group
+		>
+			{
+				pillars.map((pillar) => (
+					<li class="relative rounded-[clamp(14px,calc(var(--w)*1.56/100),20px)] bg-paper px-[clamp(18px,calc(var(--w)*2.8/100),36px)] pb-[clamp(36px,calc(var(--w)*5.6/100),72px)] pt-[clamp(44px,calc(var(--w)*5.9/100),76px)]" data-anim-item>
+						<span class="absolute left-0 top-0 flex h-[clamp(52px,calc(var(--w)*6.7/100),86px)] w-[clamp(52px,calc(var(--w)*6.7/100),86px)] -translate-y-1/2 items-center justify-center">
+							<svg
+								viewBox="0 0 100 100"
+								class="absolute inset-0 h-full w-full text-green"
+								aria-hidden="true"
+							>
+								<path d={scallop} fill="currentColor" />
+							</svg>
+							<span class="display relative text-[clamp(18px,calc(var(--w)*2.35/100),30px)] leading-none text-ink">
+								{pillar.number}
+							</span>
+						</span>
+
+						<h3 class="display text-[clamp(20px,calc(var(--w)*2.1/100),27px)] leading-[1.17] text-ink">
+							{pillar.title[0]}
+							<br />
+							{pillar.title[1]}
+						</h3>
+
+						<p class="mt-[clamp(18px,calc(var(--w)*3.1/100),40px)] font-sans text-[clamp(14px,calc(var(--w)*1.28/100),17px)] leading-[1.5] text-ink/80">
+							{pillar.body}
+						</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

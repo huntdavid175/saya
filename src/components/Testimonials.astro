@@ -1,0 +1,110 @@
+---
+import GridLines from './GridLines.astro';
+
+const testimonials = [
+	{
+		quote:
+			'Saya changed what I expect from a café in Accra. The matcha is the real thing — grassy, sweet, no bitterness — and you can taste that someone actually whisked it for you.',
+		author: 'A Swaniker Street regular',
+	},
+	{
+		quote:
+			'I came for the açaí bowl and stayed three hours. Quiet, cool, good light, nobody rushing you. It has quietly become where I do my best work.',
+		author: 'A weekday morning regular',
+	},
+	{
+		quote:
+			'The cold brew with oat is the smoothest I’ve had in this city, and the cookies are dangerous. I walked in once out of curiosity and now it’s a standing Saturday plan.',
+		author: 'A first visit, now every week',
+	},
+];
+
+/* One lane has to out-run the widest viewport, so the three quotes repeat
+   before the lane itself is duplicated for the loop. */
+const lane = [...testimonials, ...testimonials, ...testimonials];
+---
+
+<section class="relative overflow-hidden bg-bone py-[clamp(72px,calc(var(--w)*7/100),90px)]">
+	<GridLines />
+
+	<div class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)]">
+		<div class="flex flex-col gap-[clamp(16px,calc(var(--w)*1.6/100),20px)] lg:flex-row lg:items-end lg:justify-between">
+			<h2
+				class="display text-[clamp(28px,calc(var(--w)*4.06/100),52px)] leading-[1.04] text-ink lg:leading-[0.9]"
+				data-split="lines"
+			>
+				Loved across <br class="max-lg:hidden" />Accra
+			</h2>
+			<p
+				class="max-w-full font-sans text-[clamp(12px,calc(var(--w)*1.1/100),14px)] font-medium uppercase leading-[1.28] text-ink lg:max-w-[calc(var(--w)*330/1280)] lg:pb-[0.4em]"
+				data-anim="up"
+			>
+				From the people who made Swaniker Street part of their daily ritual.
+			</p>
+		</div>
+	</div>
+
+	<div class="relative z-10 mt-[clamp(28px,calc(var(--w)*4.2/100),54px)]">
+		<ul class="marquee flex w-max">
+			{
+				[0, 1].map((lap) =>
+					lane.map((item) => (
+						<li
+							class="mr-[3vw] flex min-h-[300px] w-[85vw] shrink-0 flex-col rounded-[16px] bg-paper p-5 sm:mr-[clamp(12px,1.95vw,32px)] sm:min-h-[clamp(240px,25.4vw,423px)] sm:w-[clamp(230px,26.4vw,440px)] sm:rounded-[clamp(12px,1.4vw,23px)] sm:p-[clamp(16px,1.95vw,32px)]"
+							aria-hidden={lap === 1 ? 'true' : undefined}
+						>
+							<div class="flex gap-[0.22em] text-[14px] text-green sm:text-[clamp(11px,1.17vw,19px)]">
+								{[0, 1, 2, 3, 4].map(() => (
+									<svg viewBox="0 0 24 24" class="h-[1em] w-[1em]" aria-hidden="true">
+										<path
+											fill="currentColor"
+											d="M12 1.6l3.1 6.5 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9l7-.9z"
+										/>
+									</svg>
+								))}
+							</div>
+
+							<blockquote class="display mt-6 text-[20px] leading-[1.13] text-ink sm:mt-[clamp(28px,4.37vw,73px)] sm:text-[clamp(15px,1.56vw,26px)]">
+								&ldquo;{item.quote}&rdquo;
+							</blockquote>
+
+							<footer class="mt-auto pt-6 font-sans text-[13px] text-ink/80 sm:pt-[clamp(24px,3vw,49px)] sm:text-[clamp(11px,1.02vw,17px)]">
+								&mdash; {item.author}
+							</footer>
+						</li>
+					))
+				)
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.marquee {
+		animation: marquee-scroll 50s linear infinite;
+	}
+
+	.marquee:hover {
+		animation-play-state: paused;
+	}
+
+	/* One card fills most of a phone screen, so the same duration would rush
+	   past far too quickly to read. */
+	@media (max-width: 639px) {
+		.marquee {
+			animation-duration: 75s;
+		}
+	}
+
+	@keyframes marquee-scroll {
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.marquee {
+			animation: none;
+		}
+	}
+</style>

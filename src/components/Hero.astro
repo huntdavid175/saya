@@ -1,0 +1,30 @@
+---
+import GridLines from './GridLines.astro';
+---
+
+<section class="relative overflow-hidden bg-bone">
+	<GridLines />
+
+	<div class="relative z-10 px-[clamp(20px,calc(var(--w)*4/100),80px)] pt-[clamp(64px,5.6vw,118px)]">
+		<h1
+			class="display text-center text-[clamp(32px,5.7vw,120px)] leading-[1.1] text-ink lg:leading-[1.07]"
+			data-split="lines"
+			data-split-immediate
+		>
+			Come for the matcha, <br />stay for the quiet
+		</h1>
+	</div>
+
+	{/* The cup tucks under the headline. On phones it pulls up far less and runs
+	    wider, so the section keeps some height instead of collapsing. */}
+	<div
+		class="relative z-20 -mt-[clamp(12px,5.3vw,118px)] flex justify-center pb-[clamp(28px,2vw,0px)]"
+	>
+		<img
+			src="/images/hero_cup.png"
+			alt="A Saya iced matcha, whisked to order"
+			data-hero-cup
+			class="w-[min(88vw,1000px)] lg:w-[clamp(280px,45vw,1000px)]"
+		/>
+	</div>
+</section>

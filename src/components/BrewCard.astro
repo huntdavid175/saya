@@ -1,0 +1,58 @@
+---
+interface Props {
+	name: string;
+	price: string;
+	rating: string;
+	image: string;
+}
+
+const { name, price, rating, image } = Astro.props;
+---
+
+<article
+	class="group flex flex-col rounded-[24px] bg-bone px-[clamp(18px,calc(var(--w)*1.5/100),28px)] pb-[clamp(22px,calc(var(--w)*1.7/100),32px)] pt-[clamp(22px,calc(var(--w)*1.7/100),32px)] transition-colors duration-300 hover:bg-ink"
+	data-anim-item
+>
+	<div
+		class="flex items-center justify-end gap-[0.35em] font-sans text-[clamp(15px,calc(var(--w)*1.06/100),20px)] font-semibold leading-none text-ink transition-colors duration-300 group-hover:text-paper"
+	>
+		<span>{rating}</span>
+		<svg viewBox="0 0 24 24" class="h-[1.15em] w-[1.15em] text-green" aria-hidden="true">
+			<path
+				fill="currentColor"
+				d="M12 1.6l3.1 6.5 7 .9-5.1 4.9 1.3 7-6.3-3.4-6.3 3.4 1.3-7L1.9 9l7-.9z"></path>
+		</svg>
+		<span class="sr-only">out of 5</span>
+	</div>
+
+	<div class="mt-[clamp(24px,calc(var(--w)*2.2/100),42px)] flex h-[clamp(210px,calc(var(--w)*22.8/100),428px)] items-end justify-center">
+		<img src={image} alt={name} class="max-h-full max-w-full object-contain" loading="lazy" />
+	</div>
+
+	<h3
+		class="display mt-[clamp(18px,calc(var(--w)*1.6/100),30px)] text-center text-[clamp(24px,calc(var(--w)*1.92/100),36px)] leading-none text-ink transition-colors duration-300 group-hover:text-white"
+	>
+		{name}
+	</h3>
+
+	<div class="mt-[clamp(28px,calc(var(--w)*2.8/100),53px)] flex items-center justify-between gap-4">
+		<span
+			class="display text-[clamp(24px,calc(var(--w)*1.92/100),36px)] leading-none text-ink transition-colors duration-300 group-hover:text-white"
+			>{price}</span
+		>
+		<a
+			href="#order"
+			class="display flex items-center gap-[0.45em] text-[clamp(16px,calc(var(--w)*1.17/100),22px)] leading-none text-green-deep transition-colors group-hover:text-green"
+		>
+			Add to order
+			<svg viewBox="0 0 24 24" fill="none" class="h-[0.85em] w-[0.85em]" aria-hidden="true">
+				<path
+					d="M4 12h15m0 0l-6-6m6 6l-6 6"
+					stroke="currentColor"
+					stroke-width="2.4"
+					stroke-linecap="round"
+					stroke-linejoin="round"></path>
+			</svg>
+		</a>
+	</div>
+</article>

@@ -1,0 +1,168 @@
+---
+import GridLines from './GridLines.astro';
+
+/* Kept to a similar length so the sticker stays snug on every word. */
+const words = ['Chill up', 'Wake up', 'Warm up', 'Cool off'];
+
+/* Floating labels, placed as a share of the card box so they keep their
+   relationship to the headline as the card scales. */
+const badges = [
+	{
+		label: 'Uji ceremonial',
+		class: 'bg-green text-ink',
+		style: 'left:44.9%;top:4.5%;rotate:-4deg',
+	},
+	{
+		label: 'Brazilian açaí',
+		class: 'bg-purple text-ink',
+		style: 'left:9.4%;top:45.5%;rotate:-6deg',
+	},
+	{
+		label: 'Whisked by hand',
+		class: 'bg-paper text-ink',
+		style: 'left:75%;top:44.4%;rotate:4deg',
+	},
+	{
+		label: 'Baked that morning',
+		class: 'bg-purple-soft text-ink',
+		style: 'left:43.6%;top:69.5%;rotate:-3deg',
+	},
+];
+---
+
+<section class="relative bg-bone">
+	<GridLines />
+
+	<div class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] max-lg:py-8">
+		<div
+			class="relative overflow-hidden rounded-[clamp(20px,calc(var(--w)*3.1/100),40px)] bg-ink px-[clamp(20px,calc(var(--w)*3/100),38px)] pb-[clamp(36px,calc(var(--w)*5.6/100),72px)] pt-[clamp(40px,calc(var(--w)*6.4/100),82px)]"
+		>
+			{
+				badges.map((badge) => (
+					<span
+						class:list={[
+							'pointer-events-none absolute z-20 inline-flex h-[clamp(26px,calc(var(--w)*2.97/100),38px)] items-center rounded-full px-[clamp(12px,calc(var(--w)*1.33/100),17px)] font-sans text-[clamp(11px,calc(var(--w)*1.33/100),17px)] font-semibold uppercase leading-none tracking-[0.01em] max-lg:hidden',
+							badge.class,
+						]}
+						style={badge.style}
+						data-badge
+					>
+						{badge.label}
+					</span>
+				))
+			}
+
+			<h2
+				class="display relative z-10 text-center text-[clamp(30px,calc(var(--w)*8.3/100),106px)] leading-[1.04] text-white lg:leading-[0.925]"
+				data-anim="up"
+			>
+				Stir up your daily <br />routine and <br />
+				<span class="relative inline-block rotate-[-3deg]">
+					{/* offset plate behind the sticker, rotated a touch further */}
+					<span
+						aria-hidden="true"
+						class="absolute inset-0 -translate-x-[0.045em] -translate-y-[0.05em] rotate-[-1.5deg] rounded-[0.12em] bg-[#000000]/40 blur-[4px]"
+					></span>
+					<span
+						class="relative block overflow-hidden rounded-[0.12em] bg-green px-[0.37em] py-[0.24em] text-ink"
+					>
+						{/* every word shares one grid cell, so the box is sized by the
+						    widest one and never reflows as they swap */}
+						<span id="chill-words" class="grid justify-items-center">
+							{
+								words.map((word, i) => (
+									<span
+										class:list={['chill-word col-start-1 row-start-1 whitespace-nowrap', i === 0 && 'is-active']}
+										aria-hidden={i > 0 ? 'true' : undefined}
+									>
+										{word}
+									</span>
+								))
+							}
+						</span>
+					</span>
+				</span>
+				<br />with every whisk, <br />pour and scoop
+			</h2>
+
+			<p
+				class="relative z-10 mx-auto mt-[clamp(32px,calc(var(--w)*8.7/100),111px)] max-w-full sm:max-w-[calc(var(--w)*388/1280)] text-center font-sans text-[clamp(14px,calc(var(--w)*1.45/100),19px)] leading-[1.35] text-paper"
+				data-anim="up"
+			>
+				Built to slow your morning down, sharpen your afternoon, and turn an ordinary Accra day into
+				one you remember.
+			</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* Parked below the box with no transition, so resetting a word after it has
+	   left is instant and invisible. */
+	.chill-word {
+		opacity: 0;
+		transform: translateY(0.6em);
+	}
+
+	.chill-word.is-active,
+	.chill-word.is-out {
+		transition:
+			opacity 0.4s ease,
+			transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	.chill-word.is-active {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.chill-word.is-out {
+		opacity: 0;
+		transform: translateY(-0.6em);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.chill-word.is-active,
+		.chill-word.is-out {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	const stack = document.getElementById('chill-words');
+
+	if (stack) {
+		const words = Array.from(stack.querySelectorAll<HTMLElement>('.chill-word'));
+		const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (words.length > 1 && !still) {
+			let current = 0;
+			let timer = 0;
+
+			const advance = () => {
+				const previous = words[current];
+				current = (current + 1) % words.length;
+
+				previous.classList.remove('is-active');
+				previous.classList.add('is-out');
+				words[current].classList.add('is-active');
+
+				// park the outgoing word again once it has finished leaving
+				window.setTimeout(() => previous.classList.remove('is-out'), 500);
+			};
+
+			// only run while the sticker is actually on screen
+			const observer = new IntersectionObserver(([entry]) => {
+				if (entry.isIntersecting) {
+					timer ||= window.setInterval(advance, 2200);
+				} else {
+					window.clearInterval(timer);
+					timer = 0;
+				}
+			});
+
+			observer.observe(stack);
+		}
+	}
+</script>

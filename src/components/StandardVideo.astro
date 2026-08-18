@@ -1,0 +1,61 @@
+---
+import GridLines from './GridLines.astro';
+
+/* The video grows inside a pinned, viewport-tall frame, so the section owns
+   the screen for the whole effect and nothing below it creeps into view.
+   Growth is a transform on the <video> itself — the box around it is already
+   at its final size, so the page never reflows while you scroll.
+   All of the motion lives in src/lib/motion.ts. */
+
+const label =
+	'display pointer-events-none absolute z-20 text-[clamp(12px,calc(var(--w)*1.45/100),19px)] leading-[1.2] text-green-deep max-md:hidden';
+---
+
+<section class="relative bg-bone">
+	<GridLines />
+
+	<div
+		data-video-frame
+		class="relative z-10 mx-auto flex w-full md:min-h-screen max-w-shell flex-col items-center justify-center gap-[clamp(20px,calc(var(--w)*2.8/100),44px)] px-[var(--gutter)] py-[clamp(56px,calc(var(--w)*4/100),64px)]"
+	>
+		<h2
+			class="display text-center text-[clamp(28px,calc(var(--w)*3.9/100),50px)] leading-[1.12] text-ink lg:leading-[1.05]"
+			data-split="lines"
+		>
+			A new standard for <br class="max-lg:hidden" />café culture in Accra
+		</h2>
+
+		<div class="relative w-full">
+			<span class:list={[label, 'left-[13%] top-[18%]']} data-video-label>
+				Whisked <br />to order
+			</span>
+			<span class:list={[label, 'right-[13%] top-[72%] text-right']} data-video-label>
+				Steeped <br />overnight
+			</span>
+
+			{/* Sized to its final dimensions and capped against the viewport, so the
+			    frame always fits on screen and the pin never has to reflow. */}
+			<div class="mx-auto aspect-video w-full max-h-[56vh] max-w-[calc(56vh*16/9)]">
+				<video
+					data-video-grow
+					class="h-full w-full rounded-[clamp(20px,calc(var(--w)*3.1/100),40px)] object-cover will-change-transform"
+					src="/videos/mid_video.mp4"
+					autoplay
+					muted
+					loop
+					playsinline
+					preload="metadata"
+					aria-label="A barista pulling a shot of espresso"></video>
+			</div>
+		</div>
+
+		<p
+			data-video-copy
+			class="mx-auto max-w-full lg:max-w-[calc(var(--w)*560/1280)] text-center font-sans text-[clamp(15px,calc(var(--w)*1.45/100),19px)] leading-[1.5] text-ink"
+		>
+			Nothing at Saya is poured in a hurry. Matcha is sifted and whisked by hand, cold brew steeps
+			overnight before it ever meets ice, and every syrup and finish is built in-house &mdash; so the
+			balance you taste is the one we meant.
+		</p>
+	</div>
+</section>

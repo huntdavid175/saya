@@ -1,0 +1,87 @@
+---
+import GridLines from './GridLines.astro';
+import BrewCard from './BrewCard.astro';
+
+const tabs = ['Signature', 'Matcha Bar', 'Cold Brew'];
+
+const brews = [
+	{ name: 'Uji Matcha Latte', price: '₵45', rating: '4.9', image: '/images/brew1.avif' },
+	{ name: 'Hojicha Cream Latte', price: '₵45', rating: '4.9', image: '/images/brew2.avif' },
+	{ name: 'Cold Brew Oat', price: '₵35', rating: '4.8', image: '/images/brew3.avif' },
+	{ name: 'Iced Matcha Tonic', price: '₵40', rating: '4.7', image: '/images/brew1.avif' },
+	{ name: 'Açaí Cream Shake', price: '₵55', rating: '4.9', image: '/images/brew2.avif' },
+	{ name: 'Vanilla Cold Foam', price: '₵40', rating: '4.8', image: '/images/brew3.avif' },
+];
+---
+
+<section id="menu" class="relative bg-bone">
+	<GridLines />
+
+	<div class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] max-lg:py-8">
+		<div
+			class="rounded-[clamp(24px,calc(var(--w)*2.1/100),40px)] bg-paper px-[clamp(20px,calc(var(--w)*4.15/100),78px)] py-[clamp(40px,calc(var(--w)*5.64/100),106px)]"
+		>
+			<div class="flex flex-col gap-[clamp(20px,calc(var(--w)*2/100),38px)] lg:flex-row lg:items-end lg:justify-between">
+				<h2 class="display text-[clamp(38px,calc(var(--w)*5.32/100),100px)] leading-[1.04] text-ink lg:leading-[0.9]" data-split="lines">
+					Explore our <br class="max-lg:hidden" />signature pours
+				</h2>
+				<p
+					class="max-w-full font-sans text-[clamp(14px,calc(var(--w)*1.12/100),21px)] font-medium uppercase leading-[1.35] text-ink lg:max-w-[calc(var(--w)*460/1880)] lg:pb-[0.6em]"
+					data-anim="up"
+				>
+					A short menu, made properly. Matcha whisked to order, coffee steeped overnight.
+				</p>
+			</div>
+
+			<div
+				class="mt-[clamp(28px,calc(var(--w)*5.1/100),96px)] flex flex-wrap gap-[clamp(8px,calc(var(--w)*0.64/100),12px)]"
+				role="tablist"
+				aria-label="Menu categories"
+				data-anim-group
+			>
+				{
+					tabs.map((tab, i) => (
+						<button
+							type="button"
+							role="tab"
+							data-anim-item
+							aria-selected={i === 0 ? 'true' : 'false'}
+							class:list={[
+								'brew-tab flex h-[clamp(40px,calc(var(--w)*2.77/100),52px)] items-center rounded-full px-[clamp(16px,calc(var(--w)*1.28/100),24px)] font-sans text-[clamp(13px,calc(var(--w)*0.96/100),18px)] font-medium uppercase leading-none transition-colors',
+								i === 0
+									? 'bg-ink-soft text-paper'
+									: 'bg-tab text-ink-soft/80 hover:bg-ink-soft/10',
+							]}
+						>
+							{tab}
+						</button>
+					))
+				}
+			</div>
+
+			<div
+				class="mt-[clamp(28px,calc(var(--w)*2.8/100),52px)] grid grid-cols-1 gap-[clamp(16px,calc(var(--w)*1.7/100),32px)] md:grid-cols-2 2xl:grid-cols-3"
+				data-anim-group
+			>
+				{brews.map((brew) => <BrewCard {...brew} />)}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const tabs = document.querySelectorAll<HTMLButtonElement>('.brew-tab');
+	const active = ['bg-ink-soft', 'text-paper'];
+	const idle = ['bg-tab', 'text-ink-soft/80', 'hover:bg-ink-soft/10'];
+
+	tabs.forEach((tab) => {
+		tab.addEventListener('click', () => {
+			tabs.forEach((other) => {
+				const on = other === tab;
+				other.setAttribute('aria-selected', String(on));
+				other.classList.remove(...(on ? idle : active));
+				other.classList.add(...(on ? active : idle));
+			});
+		});
+	});
+</script>

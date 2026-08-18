@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+	/* Layout: the site content box */
+	--container-shell: 1280px;
+
+	/* Type */
+	--font-display: "Anton", "Arial Narrow", "Haettenschweiler", sans-serif;
+	--font-serif: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif;
+	--font-sans: "Inter", ui-sans-serif, system-ui, "Helvetica Neue", Arial, sans-serif;
+
+	/* Palette: a black-and-white brand, accented with the green and light
+	   purple from the cup. The -deep variants are the accessible text weights
+	   of each accent, for use on light surfaces. */
+	--color-ink: #0f0f0f;
+	--color-ink-soft: #2c2c2c;
+	--color-paper: #ffffff;
+	--color-bone: #f4f3f0;
+	--color-tab: #eceae5;
+	--color-green: #86b93f;
+	--color-green-deep: #4f7a20;
+	--color-purple: #c77bd5;
+	--color-purple-soft: #e7d0ed;
+	--color-rule: rgba(15, 15, 15, 0.08);
+}
+
+@layer base {
+	:root {
+		/* Everything in the design is authored against a 1880px reference
+		   viewport. --w freezes that scaling once the shell width is reached,
+		   so type and spacing stop growing on very large screens. */
+		--w: min(100vw, 1280px);
+
+		/* One gutter for every element that sits on the site content box:
+		   header, grid rules, and section cards all line up because of it. */
+		--gutter: clamp(20px, calc(var(--w) * 2.9 / 100), 54px);
+	}
+
+	html {
+		-webkit-font-smoothing: antialiased;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
+
+	body {
+		background-color: var(--color-bone);
+		font-family: var(--font-sans);
+	}
+
+	/* Display face is set very tight in the design — letters almost touch. */
+	.display {
+		font-family: var(--font-display);
+		font-weight: 400;
+		letter-spacing: -0.035em;
+		text-transform: uppercase;
+	}
+}

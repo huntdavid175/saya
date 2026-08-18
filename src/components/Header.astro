@@ -1,0 +1,100 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+	{ label: 'About', href: '#about' },
+	{ label: 'Blog', href: '#blog' },
+	{ label: 'Menu', href: '#menu' },
+];
+---
+
+<header class="relative bg-paper">
+	<div
+		class="mx-auto flex h-[clamp(64px,calc(var(--w)*7.07/100),133px)] w-full max-w-shell items-center justify-between px-[var(--gutter)]"
+	>
+		{/* Below lg the nav collapses into the panel underneath, so the logo can
+		    sit inline on the left instead of fighting it for the centre. */}
+		<nav
+			class="hidden items-center gap-[clamp(12px,calc(var(--w)*1.2/100),22px)] font-sans text-[clamp(14px,calc(var(--w)*1.33/100),25px)] font-medium uppercase leading-none tracking-[0.01em] text-ink lg:flex"
+		>
+			{
+				links.map((link) => (
+					<a href={link.href} class="transition-colors hover:text-green">
+						{link.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<Logo class="lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2" />
+
+		<a
+			href="#order"
+			class="display hidden h-[clamp(40px,calc(var(--w)*3.6/100),68px)] items-center justify-center rounded-full bg-green px-[clamp(20px,calc(var(--w)*2.7/100),50px)] text-[clamp(15px,calc(var(--w)*1.49/100),28px)] leading-none text-ink transition-colors hover:bg-[#74a334] lg:inline-flex"
+		>
+			Order now
+		</a>
+
+		<button
+			type="button"
+			id="nav-toggle"
+			aria-expanded="false"
+			aria-controls="mobile-nav"
+			aria-label="Open menu"
+			class="-mr-2 flex h-11 w-11 items-center justify-center text-ink lg:hidden"
+		>
+			<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+				<path
+					d="M3 6h18M3 12h18M3 18h18"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"></path>
+			</svg>
+		</button>
+	</div>
+
+	<div id="mobile-nav" hidden class="border-t border-rule bg-paper lg:hidden">
+		<nav class="mx-auto w-full max-w-shell px-[var(--gutter)] pb-6 pt-1">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						class="block border-b border-rule py-4 font-sans text-[17px] font-medium uppercase leading-none tracking-[0.02em] text-ink"
+					>
+						{link.label}
+					</a>
+				))
+			}
+
+			<a
+				href="#order"
+				class="display mt-6 flex h-12 items-center justify-center rounded-full bg-green text-[18px] leading-none text-ink"
+			>
+				Order now
+			</a>
+		</nav>
+	</div>
+</header>
+
+<script>
+	const toggle = document.getElementById('nav-toggle');
+	const panel = document.getElementById('mobile-nav');
+
+	if (toggle && panel) {
+		const setOpen = (open: boolean) => {
+			panel.hidden = !open;
+			toggle.setAttribute('aria-expanded', String(open));
+			toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+		};
+
+		toggle.addEventListener('click', () => setOpen(panel.hidden));
+
+		/* Tapping a link jumps down the page — leaving the panel open would
+		   cover what it just scrolled to. */
+		panel.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+
+		/* Coming back to desktop must not leave the panel latched shut. */
+		const wide = window.matchMedia('(min-width: 1024px)');
+		wide.addEventListener('change', (e) => e.matches && setOpen(false));
+	}
+</script>

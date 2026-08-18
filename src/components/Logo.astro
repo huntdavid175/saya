@@ -1,0 +1,31 @@
+---
+interface Props {
+	class?: string;
+	/** 'cream' renders the mark and wordmark light, for use on the dark footer. */
+	tone?: 'brand' | 'cream';
+}
+
+const { class: className = '', tone = 'brand' } = Astro.props;
+---
+
+<a
+	href="/"
+	class={`flex items-center gap-[0.3em] text-[clamp(28px,calc(var(--w)*3.4/100),64px)] ${className}`}
+>
+	<img
+		src="/images/logo.png"
+		alt=""
+		width="238"
+		height="233"
+		class:list={[
+			'h-[1.15em] w-auto shrink-0',
+			tone === 'cream' && 'brightness-0 invert',
+		]}
+	/>
+	<span
+		class:list={[
+			'font-serif text-[0.6em] font-medium uppercase leading-none tracking-[0.2em]',
+			tone === 'cream' ? 'text-paper' : 'text-ink-soft',
+		]}>Saya</span
+	>
+</a>

@@ -1,0 +1,15 @@
+---
+/* The faint vertical rules behind every section. They sit on the same
+   content box as the header and the section cards, so everything aligns. */
+---
+
+<div class="pointer-events-none absolute inset-0 z-0 flex justify-center" aria-hidden="true">
+	<div class="w-full max-w-shell px-[var(--gutter)]">
+		<div class="grid h-full grid-cols-4">
+			<div class="border-l border-rule"></div>
+			<div class="border-l border-rule"></div>
+			<div class="border-l border-rule"></div>
+			<div class="border-l border-r border-rule"></div>
+		</div>
+	</div>
+</div>

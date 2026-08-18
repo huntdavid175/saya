@@ -1,11 +1,30 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import SignatureBrews from '../components/SignatureBrews.astro';
+import StandardVideo from '../components/StandardVideo.astro';
+import StirUp from '../components/StirUp.astro';
+import Pillars from '../components/Pillars.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CraftedMoment from '../components/CraftedMoment.astro';
+import OrderCta from '../components/OrderCta.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<SiteHeader />
+	<main>
+		<Hero />
+		<About />
+		<SignatureBrews />
+		<StandardVideo />
+		<StirUp />
+		<Pillars />
+		<Testimonials />
+		<CraftedMoment />
+		<OrderCta />
+	</main>
+	<SiteFooter />
 </Layout>

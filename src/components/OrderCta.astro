@@ -1,0 +1,54 @@
+---
+import GridLines from './GridLines.astro';
+
+/* Both drinks share one height so they stay the same size; each leans in
+   toward the bands. Below md there is no room for them beside the headline,
+   so they step out and the headline takes the space instead. */
+const drink =
+	'relative z-20 hidden h-[clamp(140px,calc(var(--w)*27/100),346px)] w-auto max-w-none shrink-0 md:block';
+---
+
+<section class="relative overflow-hidden bg-bone">
+	<GridLines />
+
+	<div
+		class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] py-[clamp(64px,calc(var(--w)*6/100),77px)]"
+	>
+		{/* the drinks sit in flow either side of the bands, so they stay tucked
+		    against them whatever the headline measures */}
+		<div class="flex items-center justify-center">
+			<img src="/images/floating2.avif" alt="" class={`${drink} -mr-[1.2%] rotate-[7deg]`} loading="lazy" data-float="1" />
+
+			<h2
+				class="display relative z-10 flex flex-col items-center text-[clamp(30px,calc(var(--w)*7.2/100),92px)] leading-[0.95] tracking-[0.04em] md:leading-[0.85] text-paper"
+			>
+				<span class="rotate-[-1.4deg] rounded-[0.06em] bg-ink px-[0.115em] py-[0.24em]" data-cta-band
+					>Make the ordinary</span
+				>
+				<span class="rotate-[-0.8deg] rounded-[0.06em] bg-purple px-[0.115em] py-[0.28em] text-ink" data-cta-band
+					>Feel intentional</span
+				>
+			</h2>
+
+			<img src="/images/floating1.avif" alt="" class={`${drink} -ml-[1.2%] rotate-[-7deg]`} loading="lazy" data-float="-1" />
+		</div>
+
+		<p
+			class="relative mx-auto mt-[clamp(24px,calc(var(--w)*2.2/100),28px)] max-w-full text-center font-sans text-[clamp(14px,calc(var(--w)*1.4/100),18px)] leading-[1.6] text-ink/80 lg:max-w-[calc(var(--w)*540/1280)]"
+			data-anim="up"
+		>
+			Order ahead or just walk in &mdash; either way it&rsquo;s made the same. Slowly, in front of you,
+			with love.
+		</p>
+
+		<div class="relative flex justify-center">
+			<a
+				href="#order"
+				class="display mt-[clamp(24px,calc(var(--w)*3.8/100),49px)] inline-flex h-[clamp(44px,calc(var(--w)*5.3/100),68px)] items-center justify-center rounded-full bg-green px-[clamp(24px,calc(var(--w)*4.3/100),55px)] text-[clamp(16px,calc(var(--w)*1.72/100),22px)] leading-none text-ink transition-colors hover:bg-[#74a334]"
+				data-anim="up"
+			>
+				Order now
+			</a>
+		</div>
+	</div>
+</section>

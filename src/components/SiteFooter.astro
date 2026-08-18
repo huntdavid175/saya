@@ -1,0 +1,154 @@
+---
+import Logo from './Logo.astro';
+import { scallopPath } from '../lib/scallop';
+
+const scallop = scallopPath();
+
+const phrases = ['Whisked slow', 'Steeped cold', 'Made with love', 'Sip and stay'];
+/* One lane has to out-run the widest viewport before it is duplicated. */
+const lane = [...phrases, ...phrases, ...phrases];
+
+const pages = ['About', 'Blog', 'Menu', 'Location', 'Reservation', '404'];
+const socials = ['Instagram', 'TikTok', 'Facebook', 'WhatsApp'];
+
+const columnHeading = 'display text-[clamp(15px,calc(var(--w)*1.64/100),21px)] leading-none';
+const columnList =
+	'display flex flex-col gap-[clamp(10px,calc(var(--w)*1/100),13px)] text-[clamp(15px,calc(var(--w)*1.64/100),21px)] leading-none';
+---
+
+<footer class="relative">
+	<div class="overflow-hidden bg-green">
+		<ul
+			class="ticker flex w-max items-center py-[clamp(14px,calc(var(--w)*2.2/100),28px)] font-display text-[clamp(22px,calc(var(--w)*4.06/100),52px)] uppercase leading-none tracking-[0.01em] text-ink"
+		>
+			{
+				[0, 1].map((lap) =>
+					lane.map((phrase) => (
+						<li
+							class="mr-[clamp(10px,calc(var(--w)*1.7/100),22px)] flex shrink-0 items-center gap-[clamp(10px,calc(var(--w)*1.7/100),22px)]"
+							aria-hidden={lap === 1 ? 'true' : undefined}
+						>
+							<span>{phrase}</span>
+							<svg
+								viewBox="0 0 100 100"
+								class="h-[clamp(10px,calc(var(--w)*1.56/100),20px)] w-[clamp(10px,calc(var(--w)*1.56/100),20px)] shrink-0 text-ink"
+								aria-hidden="true"
+							>
+								<path d={scallop} fill="currentColor" />
+							</svg>
+						</li>
+					))
+				)
+			}
+		</ul>
+	</div>
+
+	<div class="bg-ink text-paper">
+		<div
+			class="mx-auto w-full max-w-shell px-[var(--gutter)] pb-[clamp(28px,calc(var(--w)*4/100),51px)] pt-[clamp(44px,calc(var(--w)*6/100),77px)] lg:max-w-[calc(var(--w)*940/1280)]"
+		>
+			<div class="flex flex-col gap-[clamp(20px,calc(var(--w)*2.5/100),32px)] sm:flex-row sm:items-start sm:justify-between">
+				<Logo tone="cream" class="text-[clamp(20px,calc(var(--w)*2.2/100),28px)]" />
+				<p
+					class="display text-[clamp(15px,calc(var(--w)*1.64/100),21px)] leading-[1.1] text-paper sm:text-right"
+					data-anim="up"
+				>
+					Every detail intentional. <br class="max-sm:hidden" />Every cup made with love
+				</p>
+			</div>
+
+			{/* On phones the two link lists pair up and contact takes the full
+			    width beneath them, rather than three stacked ragged blocks. */}
+			<div
+				class="mt-[clamp(36px,calc(var(--w)*6/100),77px)] grid grid-cols-2 gap-x-6 gap-y-[clamp(28px,calc(var(--w)*3/100),38px)] sm:grid-cols-3"
+				data-anim-group
+			>
+				<ul class:list={[columnList, 'max-sm:order-1']} data-anim-item>
+					{
+						pages.map((page) => (
+							<li>
+								<a href={`#${page.toLowerCase()}`} class="transition-opacity hover:opacity-70">
+									{page}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				<div
+					class="text-left max-sm:order-3 max-sm:col-span-2 max-sm:border-t max-sm:border-paper/15 max-sm:pt-[clamp(24px,calc(var(--w)*3/100),38px)] sm:text-center"
+					data-anim-item
+				>
+					<h2 class={columnHeading}>Contact</h2>
+					<p
+						class="mt-[clamp(12px,calc(var(--w)*1.4/100),18px)] font-sans text-[clamp(13px,calc(var(--w)*1.1/100),14px)] leading-[1.9]"
+					>
+						<a href="mailto:hello@saya.com" class="transition-opacity hover:opacity-70"
+							>hello@saya.com</a
+						><br />
+						<a href="tel:+233544853825" class="transition-opacity hover:opacity-70"
+							>+233 54 485 3825</a
+						>
+					</p>
+
+					<h2
+						class:list={[columnHeading, 'mt-[clamp(20px,calc(var(--w)*2.6/100),33px)]']}
+					>
+						Saya Café
+					</h2>
+					<address
+						class="mt-[clamp(10px,calc(var(--w)*1.1/100),14px)] font-sans text-[clamp(13px,calc(var(--w)*1.1/100),14px)] not-italic leading-[1.55]"
+					>
+						222 Swaniker Street<br />Abelemkpe, Accra<br />Ghana
+					</address>
+				</div>
+
+				<ul class:list={[columnList, 'max-sm:order-2 sm:text-right']} data-anim-item>
+					{
+						socials.map((social) => (
+							<li>
+								<a href="#" class="transition-opacity hover:opacity-70">
+									{social}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div
+				class="mt-[clamp(32px,calc(var(--w)*4/100),51px)] border-t border-paper/20 pt-[clamp(18px,calc(var(--w)*2/100),26px)]"
+			>
+				<div
+					class="flex flex-col items-start gap-2 font-sans text-[clamp(12px,calc(var(--w)*1.1/100),14px)] text-paper/80 sm:flex-row sm:items-center sm:justify-between"
+				>
+					<p>&copy; 2026 Saya. All rights reserved.</p>
+					<a href="#privacy" class="transition-opacity hover:opacity-70">Privacy Policy</a>
+					<a href="#top" class="transition-opacity hover:opacity-70">Back to top</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.ticker {
+		animation: ticker-scroll 40s linear infinite;
+	}
+
+	.ticker:hover {
+		animation-play-state: paused;
+	}
+
+	@keyframes ticker-scroll {
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ticker {
+			animation: none;
+		}
+	}
+</style>

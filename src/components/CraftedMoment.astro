@@ -1,0 +1,50 @@
+---
+import GridLines from './GridLines.astro';
+---
+
+<section class="relative bg-bone">
+	<GridLines />
+
+	<div
+		class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] py-[clamp(72px,calc(var(--w)*7/100),90px)]"
+	>
+		<div
+			class="grid grid-cols-1 items-center gap-[clamp(24px,calc(var(--w)*5.86/100),75px)] lg:grid-cols-[51.4fr_42.4fr]"
+		>
+			<img
+				src="/images/crafted.avif"
+				alt="The Saya room on Swaniker Street, with counter seating and armchairs"
+				data-crafted-img
+				class="aspect-[727/557] w-full rounded-[clamp(18px,calc(var(--w)*2.65/100),34px)] bg-ink/5 object-cover"
+				loading="lazy"
+			/>
+
+			<div>
+				<h2
+					class="display text-[clamp(30px,calc(var(--w)*5.78/100),74px)] leading-[1.06] text-ink lg:leading-[0.897]"
+					data-split="lines"
+				>
+					Made for your <br class="max-lg:hidden" />slow Accra <br
+						class="max-lg:hidden"
+					/>afternoon with us
+				</h2>
+
+				<p
+					class="mt-[clamp(20px,calc(var(--w)*2.97/100),38px)] font-sans text-[clamp(14px,calc(var(--w)*1.25/100),16px)] leading-[1.6] text-ink/80"
+					data-anim="up"
+				>
+					A calm, minimalist room on Swaniker Street, Abelemkpe — built for focused work, unhurried
+					conversation and the kind of drink you finish slowly. Luxury, but the honest kind.
+				</p>
+
+				<a
+					href="#about"
+					class="display mt-[clamp(24px,calc(var(--w)*3.44/100),44px)] inline-flex h-[clamp(40px,calc(var(--w)*4.14/100),53px)] items-center justify-center rounded-full bg-green px-[clamp(22px,calc(var(--w)*3.2/100),41px)] text-[clamp(14px,calc(var(--w)*1.48/100),19px)] leading-none text-ink transition-colors hover:bg-[#74a334]"
+					data-anim="up"
+				>
+					Come find us
+				</a>
+			</div>
+		</div>
+	</div>
+</section>

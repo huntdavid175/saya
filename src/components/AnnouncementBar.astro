@@ -1,0 +1,41 @@
+---
+/* Dismissible promo bar pinned above the header. */
+---
+
+<div id="announcement-bar" class="bg-ink text-[clamp(12px,calc(var(--w)*1.33/100),25px)] text-paper">
+	<div
+		class="relative mx-auto flex w-full max-w-shell justify-center px-[clamp(36px,calc(var(--w)*5/100),88px)] py-[calc(var(--w)*14/1880)]"
+	>
+		<p
+			class="max-w-full lg:max-w-[calc(var(--w)*870/1880)] text-center font-sans font-semibold uppercase leading-[1.6] tracking-[0.005em]"
+		>
+			Ceremonial-grade matcha from Uji, Kyoto<span class="max-sm:hidden"> &mdash; now whisked daily on Swaniker Street</span> &mdash;{' '}
+			<a
+				href="#menu"
+				class="text-green underline decoration-[0.06em] underline-offset-[0.3em] transition-colors hover:text-green-deep"
+				>See what we pour</a
+			>
+		</p>
+
+		<button
+			type="button"
+			id="announcement-close"
+			aria-label="Dismiss announcement"
+			class="absolute right-[clamp(14px,calc(var(--w)*2.4/100),45px)] top-[calc(var(--w)*14/1880)] flex h-[1.6em] w-[1.6em] items-center justify-center text-paper/90 transition-opacity hover:opacity-70"
+		>
+			<svg viewBox="0 0 24 24" fill="none" class="h-[1em] w-[1em]" aria-hidden="true">
+				<path
+					d="M4 4l16 16M20 4L4 20"
+					stroke="currentColor"
+					stroke-width="1.8"
+					stroke-linecap="round"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<script>
+	document.getElementById('announcement-close')?.addEventListener('click', () => {
+		document.getElementById('announcement-bar')?.remove();
+	});
+</script>
