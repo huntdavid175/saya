@@ -4,13 +4,16 @@ import BrewCard from './BrewCard.astro';
 
 const tabs = ['Signature', 'Matcha Bar', 'Cold Brew'];
 
+/* Three photographs across six cards, ordered 1-2-3 / 2-3-1 so the second row
+   never repeats the first. That rotation also means no column stacks the same
+   cup, and no two neighbours match at one, two or three columns wide. */
 const brews = [
-	{ name: 'Uji Matcha Latte', price: '₵45', rating: '4.9', image: '/images/brew1.avif' },
-	{ name: 'Hojicha Cream Latte', price: '₵45', rating: '4.9', image: '/images/brew2.avif' },
-	{ name: 'Cold Brew Oat', price: '₵35', rating: '4.8', image: '/images/brew3.avif' },
-	{ name: 'Iced Matcha Tonic', price: '₵40', rating: '4.7', image: '/images/brew1.avif' },
-	{ name: 'Açaí Cream Shake', price: '₵55', rating: '4.9', image: '/images/brew2.avif' },
-	{ name: 'Vanilla Cold Foam', price: '₵40', rating: '4.8', image: '/images/brew3.avif' },
+	{ name: 'Uji Matcha Latte', price: '₵45', rating: '4.9', image: '/images/brew1.png' },
+	{ name: 'Açaí Cream Shake', price: '₵55', rating: '4.9', image: '/images/brew2.png' },
+	{ name: 'Cold Brew Oat', price: '₵35', rating: '4.8', image: '/images/brew3.png' },
+	{ name: 'Sunrise Açaí Cooler', price: '₵50', rating: '4.8', image: '/images/brew2.png' },
+	{ name: 'Hojicha Cream Latte', price: '₵45', rating: '4.9', image: '/images/brew3.png' },
+	{ name: 'Iced Matcha Tonic', price: '₵40', rating: '4.7', image: '/images/brew1.png' },
 ];
 ---
 

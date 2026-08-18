@@ -22,9 +22,12 @@ import GridLines from './GridLines.astro';
 			class="display mx-auto mt-[clamp(28px,calc(var(--w)*3.4/100),64px)] max-w-full text-center text-[clamp(30px,calc(var(--w)*3.67/100),69px)] leading-[1.12] text-ink lg:max-w-[calc(var(--w)*1120/1880)] lg:leading-[0.94]"
 			data-split="soft"
 		>
+			{/* A circle, not the old wide lozenge: the cup shot is portrait, and a
+			    landscape pill would have squashed it. Kept close to the original
+			    1.13em so it still sits inside the headline's tight leading. */}
 			At Saya, a good cup is never rushed <br class="max-lg:hidden" />it&rsquo;s an invitation<span
-				class="ml-[0.12em] mr-[0.12em] inline-block h-[1.13em] w-[1.88em] -translate-y-[0.05em] overflow-hidden rounded-full bg-white align-middle"
-				><img src="/images/about-drink.svg" alt="" class="h-full w-full object-cover" /></span
+				class="mx-[0.14em] inline-flex h-[1.3em] w-[1.3em] -translate-y-[0.08em] items-center justify-center overflow-hidden rounded-full bg-white align-middle"
+				><img src="/images/brew2.png" alt="" class="h-[1.05em] w-auto object-contain" /></span
 			>to slow down
 		</h2>
 	</div>

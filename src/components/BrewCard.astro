@@ -4,9 +4,15 @@ interface Props {
 	price: string;
 	rating: string;
 	image: string;
+	/** Degrees to turn the shot by. Round, top-down products repeat across the
+	    grid, and a few degrees of rotation stops two of the same photo reading
+	    as the same photo. Inline, not a class, so Tailwind can stay static. */
+	spin?: number;
+	/** Cups sit on the floor of the box; round things look better centred. */
+	align?: 'end' | 'center';
 }
 
-const { name, price, rating, image } = Astro.props;
+const { name, price, rating, image, spin = 0, align = 'end' } = Astro.props;
 ---
 
 <article
@@ -25,8 +31,19 @@ const { name, price, rating, image } = Astro.props;
 		<span class="sr-only">out of 5</span>
 	</div>
 
-	<div class="mt-[clamp(24px,calc(var(--w)*2.2/100),42px)] flex h-[clamp(210px,calc(var(--w)*22.8/100),428px)] items-end justify-center">
-		<img src={image} alt={name} class="max-h-full max-w-full object-contain" loading="lazy" />
+	<div
+		class:list={[
+			'mt-[clamp(24px,calc(var(--w)*2.2/100),42px)] flex h-[clamp(210px,calc(var(--w)*22.8/100),428px)] justify-center',
+			align === 'center' ? 'items-center' : 'items-end',
+		]}
+	>
+		<img
+			src={image}
+			alt={name}
+			class="max-h-full max-w-full object-contain"
+			style={spin ? `rotate: ${spin}deg` : undefined}
+			loading="lazy"
+		/>
 	</div>
 
 	<h3

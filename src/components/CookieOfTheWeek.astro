@@ -1,0 +1,50 @@
+---
+import GridLines from './GridLines.astro';
+import BrewCard from './BrewCard.astro';
+
+/* Four photographs across six cards, ordered 1-2-3 / 4-3-1. Only cookie3 and
+   cookie1 repeat, and that order keeps every column distinct at three wide and
+   every row a different pair at two wide. The two repeats are also turned far
+   apart — these are round, top-down bakes, so a different rotation reads as a
+   different cookie. */
+const cookies = [
+	{ name: 'Triple Chocolate Chunk', price: '₵30', rating: '4.9', image: '/images/cookie1.png', spin: 0 },
+	{ name: 'Red Velvet Oreo', price: '₵35', rating: '4.9', image: '/images/cookie2.png', spin: 132 },
+	{ name: 'Toasted Coconut Cream', price: '₵32', rating: '4.8', image: '/images/cookie3.png', spin: 0 },
+	{ name: 'Milk Chocolate Chunk', price: '₵30', rating: '4.8', image: '/images/cookie4.png', spin: 61 },
+	{ name: 'Coconut Cheesecake', price: '₵35', rating: '4.7', image: '/images/cookie3.png', spin: 187 },
+	{ name: 'Salted Caramel Fudge', price: '₵32', rating: '4.9', image: '/images/cookie1.png', spin: 214 },
+];
+---
+
+<section id="cookies" class="relative bg-bone">
+	<GridLines />
+
+	<div class="relative z-10 mx-auto w-full max-w-shell px-[var(--gutter)] max-lg:py-8">
+		<div
+			class="rounded-[clamp(24px,calc(var(--w)*2.1/100),40px)] bg-paper px-[clamp(20px,calc(var(--w)*4.15/100),78px)] py-[clamp(40px,calc(var(--w)*5.64/100),106px)]"
+		>
+			<div class="flex flex-col gap-[clamp(20px,calc(var(--w)*2/100),38px)] lg:flex-row lg:items-end lg:justify-between">
+				<h2
+					class="display text-[clamp(38px,calc(var(--w)*5.32/100),100px)] leading-[1.04] text-ink lg:leading-[0.9]"
+					data-split="lines"
+				>
+					Cookie of <br class="max-lg:hidden" />the week
+				</h2>
+				<p
+					class="max-w-full font-sans text-[clamp(14px,calc(var(--w)*1.12/100),21px)] font-medium uppercase leading-[1.35] text-ink lg:max-w-[calc(var(--w)*460/1880)] lg:pb-[0.6em]"
+					data-anim="up"
+				>
+					Oversized, NYC-style, out of the oven the same morning you eat them.
+				</p>
+			</div>
+
+			<div
+				class="mt-[clamp(28px,calc(var(--w)*2.8/100),52px)] grid grid-cols-1 gap-[clamp(16px,calc(var(--w)*1.7/100),32px)] md:grid-cols-2 2xl:grid-cols-3"
+				data-anim-group
+			>
+				{cookies.map((cookie) => <BrewCard {...cookie} align="center" />)}
+			</div>
+		</div>
+	</div>
+</section>
